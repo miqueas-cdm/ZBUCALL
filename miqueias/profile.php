@@ -59,6 +59,45 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                         </span>
                     </div>
                 </div>
+
+                <!-- Gamification / Activity Level -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in mt-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="trophy" class="w-5 h-5 text-yellow-500"></i>
+                        Nível de Atividade
+                    </h3>
+                    
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-2">
+                            <i data-lucide="star" class="w-10 h-10 text-yellow-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Super Colaborador</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Nível 5</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Progresso para Nível 6</span>
+                                <span class="font-medium text-blue-600 dark:text-blue-400">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">128</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Pontos</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">12</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Conquistas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                 <!-- Professional Info -->
                 <div class="lg:col-span-2 space-y-6">

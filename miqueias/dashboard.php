@@ -107,14 +107,14 @@ $employee = getCurrentEmployee();
                             <span class="text-sm font-medium text-gray-900 dark:text-white">Benefícios</span>
                         </a>
                         
-                        <a href="payslips.php" class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all card-hover">
-                            <i data-lucide="file-text" class="w-8 h-8 text-green-600 dark:text-green-400 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">Holerites</span>
+                        <a href="transparency.php" class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all card-hover">
+                            <i data-lucide="bar-chart-2" class="w-8 h-8 text-green-600 dark:text-green-400 mb-2"></i>
+                            <span class="text-sm font-medium text-gray-900 dark:text-white">Transparência</span>
                         </a>
                         
-                        <a href="time-records.php" class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all card-hover">
-                            <i data-lucide="clock" class="w-8 h-8 text-orange-600 dark:text-orange-400 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-900 dark:text-white">Ponto</span>
+                        <a href="communications.php" class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all card-hover">
+                            <i data-lucide="bell" class="w-8 h-8 text-orange-600 dark:text-orange-400 mb-2"></i>
+                            <span class="text-sm font-medium text-gray-900 dark:text-white">Comunicados</span>
                         </a>
                         
                         <a href="documents.php" class="flex flex-col items-center p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all card-hover">
@@ -124,15 +124,32 @@ $employee = getCurrentEmployee();
                     </div>
                 </div>
                 
-                <!-- Resumo do Mês -->
+                <!-- Nível de Atividade (Gamification) -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.6s">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
-                        Resumo do Mês
+                        <i data-lucide="trophy" class="w-5 h-5 text-yellow-500"></i>
+                        Nível de Atividade
                     </h2>
-                    <div class="space-y-3" id="work-summary-container">
-                        <div class="skeleton h-16"></div>
-                        <div class="skeleton h-16"></div>
+                    
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex-shrink-0">
+                            <i data-lucide="star" class="w-8 h-8 text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 dark:text-white">Super Colaborador</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Nível 5 • 128 Pontos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600 dark:text-gray-400">Progresso para Nível 6</span>
+                            <span class="font-medium text-blue-600 dark:text-blue-400">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Complete mais 2 solicitações para subir de nível!</p>
                     </div>
                 </div>
             </div>
@@ -170,24 +187,6 @@ $employee = getCurrentEmployee();
                     document.getElementById('stat-requests').textContent = data.data.stats.pending_requests;
                     document.getElementById('stat-benefits').textContent = data.data.stats.active_benefits;
                     document.getElementById('stat-payslip').textContent = data.data.stats.payslip_available ? 'Sim' : 'Não';
-                    
-                    // Update work summary
-                    const summary = data.data.work_summary;
-                    const summaryHTML = `
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <span class="text-sm text-gray-700 dark:text-gray-300">Dias  Trabalhados</span>
-                            <span class="text-lg font-bold text-gray-900 dark:text-white">${summary.days_worked}</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <span class="text-sm text-gray-700 dark:text-gray-300">Total de Horas</span>
-                            <span class="text-lg font-bold text-gray-900 dark:text-white">${parseFloat(summary.total_hours).toFixed(1)}h</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <span class="text-sm text-gray-700 dark:text-gray-300">Horas Extras</span>
-                            <span class="text-lg font-bold text-gray-900 dark:text-white">${parseFloat(summary.overtime_hours).toFixed(1)}h</span>
-                        </div>
-                    `;
-                    document.getElementById('work-summary-container').innerHTML = summaryHTML;
                     
                     // Update communications
                     const comms = data.data.important_communications || [];

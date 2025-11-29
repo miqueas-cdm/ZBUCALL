@@ -7,19 +7,24 @@ const ThemeManager = {
         this.setTheme(savedTheme);
         this.attachListeners();
     },
-    
+
     setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
         localStorage.setItem('theme', theme);
         this.updateThemeIcon(theme);
     },
-    
+
     toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         this.setTheme(newTheme);
     },
-    
+
     updateThemeIcon(theme) {
         const themeIcon = document.getElementById('theme-icon');
         if (themeIcon) {
@@ -27,7 +32,7 @@ const ThemeManager = {
             if (window.lucide) lucide.createIcons();
         }
     },
-    
+
     attachListeners() {
         const themeToggle = document.getElementById('theme-toggle');
         if (themeToggle) {
@@ -43,7 +48,7 @@ const SidebarManager = {
         this.overlay = document.getElementById('sidebar-overlay');
         this.attachListeners();
     },
-    
+
     toggle() {
         if (this.sidebar) {
             this.sidebar.classList.toggle('-translate-x-full');
@@ -52,7 +57,7 @@ const SidebarManager = {
             }
         }
     },
-    
+
     close() {
         if (this.sidebar) {
             this.sidebar.classList.add('-translate-x-full');
@@ -61,17 +66,17 @@ const SidebarManager = {
             }
         }
     },
-    
+
     attachListeners() {
         const menuButton = document.getElementById('mobile-menu-button');
         if (menuButton) {
             menuButton.addEventListener('click', () => this.toggle());
         }
-        
+
         if (this.overlay) {
             this.overlay.addEventListener('click', () => this.close());
         }
-        
+
         // Close sidebar on window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 1024) {
@@ -84,17 +89,17 @@ const SidebarManager = {
 // Notification Manager
 const NotificationManager = {
     unreadCount: 0,
-    
+
     async init() {
         await this.loadNotifications();
         this.attachListeners();
     },
-    
+
     async loadNotifications() {
         try {
             const response = await fetch('api/notifications.php?action=list&unread_only=true');
             const data = await response.json();
-            
+
             if (data.success) {
                 this.unreadCount = data.unread_count || 0;
                 this.updateBadge();
@@ -104,7 +109,7 @@ const NotificationManager = {
             console.error('Error loading notifications:', error);
         }
     },
-    
+
     updateBadge() {
         const badge = document.getElementById('notification-badge');
         if (badge) {
@@ -112,16 +117,16 @@ const NotificationManager = {
             badge.classList.toggle('hidden', this.unreadCount === 0);
         }
     },
-    
+
     renderNotifications(notifications) {
         const container = document.getElementById('notifications-list');
         if (!container) return;
-        
+
         if (notifications.length === 0) {
             container.innerHTML = '<p class="p-4 text-center text-gray-500">Nenhuma notificação</p>';
             return;
         }
-        
+
         container.innerHTML = notifications.slice(0, 5).map(notif => `
             <div class="p-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer border-b border-gray-200 dark:border-gray-700"
                  onclick="NotificationManager.markAsRead(${notif.id})">
@@ -135,21 +140,21 @@ const NotificationManager = {
                 </div>
             </div>
         `).join('');
-        
+
         if (window.lucide) lucide.createIcons();
     },
-    
+
     async markAsRead(id) {
         try {
             const formData = new FormData();
             formData.append('action', 'mark_read');
             formData.append('id', id);
-            
+
             const response = await fetch('api/notifications.php', {
                 method: 'POST',
                 body: formData
             });
-            
+
             const data = await response.json();
             if (data.success) {
                 await this.loadNotifications();
@@ -158,7 +163,7 @@ const NotificationManager = {
             console.error('Error marking notification as read:', error);
         }
     },
-    
+
     formatDate(dateString) {
         const date = new Date(dateString);
         const now = new Date();
@@ -166,25 +171,25 @@ const NotificationManager = {
         const diffMins = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
-        
+
         if (diffMins < 1) return 'Agora';
         if (diffMins < 60) return `${diffMins}m atrás`;
         if (diffHours < 24) return `${diffHours}h atrás`;
         if (diffDays < 7) return `${diffDays}d atrás`;
-        
+
         return date.toLocaleDateString('pt-BR');
     },
-    
+
     attachListeners() {
         const bellButton = document.getElementById('notification-bell');
         const dropdown = document.getElementById('notifications-dropdown');
-        
+
         if (bellButton && dropdown) {
             bellButton.addEventListener('click', (e) => {
                 e.stopPropagation();
                 dropdown.classList.toggle('hidden');
             });
-            
+
             document.addEventListener('click', (e) => {
                 if (!dropdown.contains(e.target) && !bellButton.contains(e.target)) {
                     dropdown.classList.add('hidden');
@@ -197,7 +202,7 @@ const NotificationManager = {
 // Global Search
 const SearchManager = {
     debounceTimer: null,
-    
+
     init() {
         const searchInput = document.getElementById('global-search');
         if (searchInput) {
@@ -209,17 +214,17 @@ const SearchManager = {
             });
         }
     },
-    
+
     async search(query) {
         if (query.length < 2) {
             this.hideResults();
             return;
         }
-        
+
         try {
             const response = await fetch(`api/search.php?q=${encodeURIComponent(query)}`);
             const data = await response.json();
-            
+
             if (data.success) {
                 this.showResults(data.results || []);
             }
@@ -227,17 +232,17 @@ const SearchManager = {
             console.error('Search error:', error);
         }
     },
-    
+
     showResults(results) {
         const container = document.getElementById('search-results');
         if (!container) return;
-        
+
         if (results.length === 0) {
             container.innerHTML = '<p class="p-4 text-sm text-gray-500">Nenhum resultado encontrado</p>';
             container.classList.remove('hidden');
             return;
         }
-        
+
         container.innerHTML = results.map(result => `
             <a href="${result.url}" class="block p-3 hover:bg-gray-50 dark:hover:bg-gray-700">
                 <div class="flex items-center gap-3">
@@ -249,11 +254,11 @@ const SearchManager = {
                 </div>
             </a>
         `).join('');
-        
+
         container.classList.remove('hidden');
         if (window.lucide) lucide.createIcons();
     },
-    
+
     hideResults() {
         const container = document.getElementById('search-results');
         if (container) {
@@ -268,15 +273,15 @@ const Toast = {
         const toast = document.createElement('div');
         toast.className = `fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white z-50 fade-in ${this.getTypeClass(type)}`;
         toast.textContent = message;
-        
+
         document.body.appendChild(toast);
-        
+
         setTimeout(() => {
             toast.style.opacity = '0';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     },
-    
+
     getTypeClass(type) {
         const classes = {
             success: 'bg-green-500',
@@ -307,12 +312,34 @@ document.addEventListener('DOMContentLoaded', () => {
     SidebarManager.init();
     NotificationManager.init();
     SearchManager.init();
-    
+
     // Initialize Lucide icons
     if (window.lucide) {
         lucide.createIcons();
     }
+
+    PageTransitionManager.init();
 });
+
+// Page Transitions
+const PageTransitionManager = {
+    init() {
+        // Fade in on load
+        document.body.classList.add('loaded');
+
+        // Handle links
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link && link.href && link.href.startsWith(window.location.origin) && !link.target && !link.href.includes('#')) {
+                e.preventDefault();
+                document.body.classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 500);
+            }
+        });
+    }
+};
 
 // Export for use in other scripts
 window.Toast = Toast;

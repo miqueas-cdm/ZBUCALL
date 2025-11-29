@@ -110,6 +110,7 @@ requireAuth();
             
             const typeIcons = {
                 vacation: 'calendar',
+                loan: 'banknote',
                 hr: 'users',
                 cadastral: 'edit',
                 declaration: 'file-text',
@@ -184,6 +185,7 @@ requireAuth();
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tipo de Solicitação</label>
                         <select name="request_type" id="request_type" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="vacation">Férias</option>
+                            <option value="loan">Empréstimo</option>
                             <option value="hr">Solicitação ao RH</option>
                             <option value="cadastral">Atualização Cadastral</option>
                             <option value="declaration">Declaração</option>

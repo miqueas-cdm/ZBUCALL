@@ -11,6 +11,14 @@ require_once __DIR__ . '/../config/session.php';
 $action = $_GET['action'] ?? $_POST['action'] ?? '';
 
 switch ($action) {
+    case 'check_cpf':
+        handleCheckCpf();
+        break;
+
+    case 'login_registration':
+        handleLoginRegistration();
+        break;
+
     case 'send_otp':
         handleSendOtp();
         break;
@@ -33,6 +41,67 @@ switch ($action) {
     
     default:
         jsonResponse(false, 'Ação inválida');
+}
+
+function handleCheckCpf() {
+    $cpf = $_POST['cpf'] ?? '';
+    
+    if (empty($cpf)) {
+        jsonResponse(false, 'CPF é obrigatório');
+        return;
+    }
+    
+    $employee = dbGetRow(
+        "SELECT id FROM employees WHERE cpf = ? AND status = 'active'",
+        [$cpf]
+    );
+    
+    if ($employee) {
+        jsonResponse(true, 'CPF encontrado');
+    } else {
+        jsonResponse(false, 'CPF não encontrado');
+    }
+}
+
+function handleLoginRegistration() {
+    $cpf = $_POST['cpf'] ?? '';
+    $registration = $_POST['registration_number'] ?? '';
+    
+    if (empty($cpf) || empty($registration)) {
+        jsonResponse(false, 'CPF e Matrícula são obrigatórios');
+        return;
+    }
+    
+    $employee = dbGetRow(
+        "SELECT * FROM employees WHERE cpf = ? AND status = 'active'",
+        [$cpf]
+    );
+    
+    if (!$employee) {
+        jsonResponse(false, 'Credenciais inválidas');
+        return;
+    }
+    
+    // Check registration number (case insensitive)
+    if (strtoupper($employee['registration_number']) !== strtoupper($registration)) {
+        jsonResponse(false, 'Matrícula incorreta');
+        return;
+    }
+    
+    // Login successful
+    loginEmployee($employee);
+    
+    jsonResponse(true, 'Login realizado com sucesso', [
+        'employee' => [
+            'id' => $employee['id'],
+            'name' => $employee['full_name'],
+            'email' => $employee['email'],
+            'position' => $employee['position'],
+            'department' => $employee['department'],
+            'photo_url' => $employee['photo_url']
+        ],
+        'redirect' => 'dashboard.php'
+    ]);
 }
 
 function handleSendOtp() {

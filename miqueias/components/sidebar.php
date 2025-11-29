@@ -25,6 +25,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <i data-lucide="home" class="w-5 h-5"></i>
                 <span class="font-medium">Dashboard</span>
             </a>
+
+            <a href="transparency.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'transparency.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
+                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                <span class="font-medium">Transparência</span>
+            </a>
+
+            <a href="communications.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'communications.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
+                <i data-lucide="bell" class="w-5 h-5"></i>
+                <span class="font-medium">Comunicados</span>
+            </a>
             
             <a href="profile.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'profile.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
                 <i data-lucide="user" class="w-5 h-5"></i>
@@ -34,26 +44,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <a href="benefits.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'benefits.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
                 <i data-lucide="gift" class="w-5 h-5"></i>
                 <span class="font-medium">Benefícios</span>
-            </a>
-            
-            <a href="payslips.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'payslips.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                <i data-lucide="file-text" class="w-5 h-5"></i>
-                <span class="font-medium">Holerites</span>
-            </a>
-            
-            <a href="time-records.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'time-records.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                <i data-lucide="clock" class="w-5 h-5"></i>
-                <span class="font-medium">Ponto Eletrônico</span>
-            </a>
-            
-            <a href="documents.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'documents.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                <i data-lucide="folder" class="w-5 h-5"></i>
-                <span class="font-medium">Documentos</span>
-            </a>
-            
-            <a href="communications.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'communications.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                <i data-lucide="bell" class="w-5 h-5"></i>
-                <span class="font-medium">Comunicados</span>
             </a>
             
             <a href="requests.php" class="flex items-center gap-3 px-4 py-3 rounded-lg <?= $currentPage === 'requests.php' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">

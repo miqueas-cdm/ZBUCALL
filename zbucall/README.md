@@ -5,12 +5,10 @@ Sistema completo e moderno de portal do colaborador desenvolvido com PHP, MySQL,
 ## 📋 Características
 
 - ✅ **Dashboard** - Tela inicial com estatísticas e atalhos rápidos
-- ✅ **Perfil do Colaborador** - Visualização de dados pessoais e profissionais
-- ✅ **Benefícios** - Consulta de benefícios ativos (VT, VA, VR, Plano de Saúde, etc.)
-- ✅ **Holerites** - Visualização e download de contracheques
-- ✅ **Ponto Eletrônico** - Espelho mensal de registro de ponto
+- ✅ **Perfil do associado** - Visualização de dados pessoais e profissionais
+- ✅ **Clube de Vantagens** - Consulta de benefícios ativos (VT, VA, VR, Plano de Saúde, etc.)
 - ✅ **Documentos** - Upload e download de documentos
-- ✅ **Comunicados Internos** - Notícias e avisos da empresa
+- ✅ **Comunicados** - Notícias e avisos da empresa
 - ✅ **Solicitações** - Envio e acompanhamento de solicitações (férias, RH, etc.)
 
 ## 🎨 Recursos Extras
@@ -123,17 +121,17 @@ Acesse: http://localhost:8000
 ##### Opção 2: XAMPP/WAMP
 
 1. Copie a pasta `miqueias` para `C:\xampp\htdocs\`
-2. Acesse: http://localhost/miqueias
+2. Acesse: http://localhost/zbucall
 
 ## 🔐 Credenciais de Teste
 
 O banco de dados vem com dados de exemplo:
 
-**Colaborador 1:**
+**Associado 1:**
 - **Email:** joao.silva@empresa.com
 - **Senha:** senha123
 
-**Colaborador 2:**
+**Associado 2:**
 - **Email:** maria.oliveira@empresa.com
 - **Senha:** senha123
 

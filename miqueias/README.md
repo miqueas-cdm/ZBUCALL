@@ -5,7 +5,7 @@ Sistema completo e moderno de portal do colaborador desenvolvido com PHP, MySQL,
 ## 📋 Características
 
 - ✅ **Dashboard** - Tela inicial com estatísticas e atalhos rápidos
-- ✅ **Perfil do Colaborador** - Visualização de dados pessoais e profissionais
+- ✅ **Perfil do Associados** - Visualização de dados pessoais e profissionais
 - ✅ **Benefícios** - Consulta de benefícios ativos (VT, VA, VR, Plano de Saúde, etc.)
 - ✅ **Holerites** - Visualização e download de contracheques
 - ✅ **Ponto Eletrônico** - Espelho mensal de registro de ponto
@@ -129,11 +129,11 @@ Acesse: http://localhost:8000
 
 O banco de dados vem com dados de exemplo:
 
-**Colaborador 1:**
+**Associado 1:**
 - **Email:** joao.silva@empresa.com
 - **Senha:** senha123
 
-**Colaborador 2:**
+**Associado 2:**
 - **Email:** maria.oliveira@empresa.com
 - **Senha:** senha123
 

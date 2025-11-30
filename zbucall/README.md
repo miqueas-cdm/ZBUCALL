@@ -30,7 +30,6 @@ zbucall/
 │   ├── dashboard.php             # Dados do dashboard
 │   ├── profile.php               # Perfil do colaborador
 │   ├── benefits.php              # Benefícios
-│   ├── payslips.php              # Holerites
 │   ├── time-records.php          # Registro de ponto
 │   ├── documents.php             # Gerenciamento de documentos
 │   ├── communications.php        # Comunicados

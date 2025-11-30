@@ -248,3 +248,7 @@ Portal do Colaborador - Sistema de Gestão de RH
 **Última atualização:** Novembro 2025
 
 Para suporte ou dúvidas, entre em contato com o departamento de TI.
+
+![CANVA-ZBUCAL](https://github.com/user-attachments/assets/a44a6b67-3336-4540-aa52-7729c2b37756)
+
+

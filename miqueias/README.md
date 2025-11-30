@@ -1,4 +1,4 @@
-# Portal do Colaborador
+# Portal do Associados  
 
 Sistema completo e moderno de portal do colaborador desenvolvido com PHP, MySQL, HTML, TailwindCSS e JavaScript.
 
@@ -26,7 +26,7 @@ Sistema completo e moderno de portal do colaborador desenvolvido com PHP, MySQL,
 ## 📁 Estrutura do Projeto
 
 ```
-miqueias/
+zbucall/
 ├── api/                          # API endpoints PHP
 │   ├── auth.php                  # Autenticação (login/logout)
 │   ├── dashboard.php             # Dados do dashboard
@@ -114,7 +114,7 @@ chmod 755 uploads/documents
 ##### Opção 1: Servidor Built-in do PHP (Desenvolvimento)
 
 ```bash
-cd C:\Users\Marcelo\miqueias
+cd C:\Users\zbucall
 php -S localhost:8000
 ```
 

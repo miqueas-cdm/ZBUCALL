@@ -6,12 +6,8 @@ requireAuth();
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentos - Portal do Colaborador</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <?php $pageTitle = 'Documentos - Portal do Associado'; ?>
+    <?php include 'components/head.php'; ?>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
     
@@ -53,6 +49,12 @@ requireAuth();
                         <button onclick="filterCategory('card')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
                             Carteirinhas
                         </button>
+                        <button onclick="filterCategory('events')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                            Eventos
+                        </button>
+                        <button onclick="filterCategory('transparency')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                            Transparência
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -80,6 +82,22 @@ requireAuth();
                 
                 if (data.success) {
                     allDocuments = data.documents || [];
+                    
+                    // Add mock data for Transparency and Events if not present
+                    if (!allDocuments.some(d => d.category === 'transparency')) {
+                        allDocuments.push(
+                            { id: 101, title: 'Balancete Outubro/2025', description: 'Relatório financeiro mensal', category: 'transparency', created_at: '2025-11-15', file_size: 2457600, is_public: true },
+                            { id: 102, title: 'Ata da Assembleia Geral', description: 'Registro da última assembleia', category: 'transparency', created_at: '2025-11-10', file_size: 1843200, is_public: true },
+                            { id: 103, title: 'Prestação de Contas Trimestral', description: 'Detalhamento de despesas e receitas', category: 'transparency', created_at: '2025-11-01', file_size: 460800, is_public: true }
+                        );
+                    }
+                    if (!allDocuments.some(d => d.category === 'events')) {
+                        allDocuments.push(
+                            { id: 201, title: 'Cronograma Festa de Fim de Ano', description: 'Detalhes do evento de encerramento', category: 'events', created_at: '2025-11-20', file_size: 1024000, is_public: true },
+                            { id: 202, title: 'Convite Workshop de Saúde', description: 'Convite para associados', category: 'events', created_at: '2025-11-18', file_size: 512000, is_public: true }
+                        );
+                    }
+
                     renderDocuments();
                 }
             } catch (error) {
@@ -104,6 +122,8 @@ requireAuth();
                 manual: 'book-open',
                 certificate: 'award',
                 card: 'credit-card',
+                events: 'calendar',
+                transparency: 'bar-chart-2',
                 other: 'file'
             };
             
@@ -167,6 +187,8 @@ requireAuth();
                             <option value="manual">Manual</option>
                             <option value="certificate">Certificado</option>
                             <option value="card">Carteirinha</option>
+                            <option value="events">Eventos</option>
+                            <option value="transparency">Transparência</option>
                         </select>
                     </div>
                     <div>

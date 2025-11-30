@@ -6,14 +6,10 @@ requireAuth();
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunicados - Portal do Colaborador</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <?php $pageTitle = 'Comunicados - Portal do Associado'; ?>
+    <?php include 'components/head.php'; ?>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900">
+<body class="bg-white dark:bg-gray-900">
     
     <?php include 'components/sidebar.php'; ?>
     
@@ -99,12 +95,12 @@ requireAuth();
             const priorityColors = {
                 urgent: 'bg-red-100 dark:bg-red-900/30 border-red-500 dark:border-red-600',
                 high: 'bg-orange-100 dark:bg-orange-900/30 border-orange-500 dark:border-orange-600',
-                normal: 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+                normal: 'bg-card dark:bg-gray-800 border-gray-200 dark:border-gray-700',
                 low: 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
             };
             
             container.innerHTML = filtered.map((comm, index) => `
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow mb-6 fade-in" style="animation-delay: ${index * 0.1}s">
+                <div class="bg-card dark:bg-gray-800 rounded-lg shadow mb-6 fade-in" style="animation-delay: ${index * 0.1}s">
                     <!-- Header -->
                     <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
                         <div class="flex items-center gap-3">

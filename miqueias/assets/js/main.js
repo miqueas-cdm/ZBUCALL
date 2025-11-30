@@ -1,4 +1,4 @@
-// Portal do Colaborador - Main JavaScript
+// Portal do Associado - Main JavaScript
 
 // Theme Management
 const ThemeManager = {
@@ -161,6 +161,29 @@ const NotificationManager = {
             }
         } catch (error) {
             console.error('Error marking notification as read:', error);
+        }
+    },
+
+    async markAllAsRead() {
+        try {
+            const formData = new FormData();
+            formData.append('action', 'mark_all_read');
+
+            const response = await fetch('api/notifications.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                this.unreadCount = 0;
+                this.updateBadge();
+                await this.loadNotifications();
+                Toast.show('Todas as notificações marcadas como lidas', 'success');
+            }
+        } catch (error) {
+            console.error('Error marking all notifications as read:', error);
+            Toast.show('Erro ao marcar notificações', 'error');
         }
     },
 

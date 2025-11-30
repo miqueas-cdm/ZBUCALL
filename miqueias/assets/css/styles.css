@@ -1,50 +1,58 @@
-/* Portal do Colaborador - Custom Styles */
+/* Portal do Associado - Custom Styles */
 
 :root {
-    --primary: #1f4e8c;
-    --primary-dark: #163961;
-    --primary-light: #2d6bb3;
-    --secondary: #f8f9fa;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --error: #ef4444;
-    --info: #3b82f6;
-    
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --text-light: #9ca3af;
-    
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-tertiary: #f3f4f6;
-    
-    --border-color: #e5e7eb;
+    --primary: #0A55A1;
+    --primary-dark: #004488;
+    --primary-light: #52A0FF;
+    --secondary: #F5F5F7;
+    --success: #34C759;
+    /* Apple Green */
+    --warning: #FF9500;
+    /* Apple Orange */
+    --error: #FF3B30;
+    /* Apple Red */
+    --info: #007AFF;
+    /* Apple Blue */
+
+    --text-primary: #1D1D1F;
+    --text-secondary: #86868B;
+    --text-light: #AEAEB2;
+
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F5F5F7;
+    /* Apple Light Background */
+    --bg-tertiary: #E5E5EA;
+
+    --border-color: #D1D1D6;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    
+
     --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
+    --radius-md: 0.75rem;
+    /* Larger radius for Apple feel */
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
 }
 
 /* Dark theme */
 [data-theme="dark"] {
-    --primary: #3b82f6;
-    --primary-dark: #2563eb;
-    --primary-light: #60a5fa;
-    
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
-    --text-light: #9ca3af;
-    
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --bg-tertiary: #374151;
-    
-    --border-color: #374151;
+    --primary: #0A55A1;
+    --primary-dark: #003366;
+    --primary-light: #52A0FF;
+
+    --text-primary: #F5F5F7;
+    --text-secondary: #86868B;
+    --text-light: #636366;
+
+    --bg-primary: #000000;
+    /* Apple Dark Background */
+    --bg-secondary: #1C1C1E;
+    /* Apple Dark Card */
+    --bg-tertiary: #2C2C2E;
+
+    --border-color: #38383A;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
@@ -86,18 +94,17 @@ body {
     0% {
         background-position: -200px 0;
     }
+
     100% {
         background-position: calc(200px + 100%) 0;
     }
 }
 
 .skeleton {
-    background: linear-gradient(
-        90deg,
-        var(--bg-tertiary) 0px,
-        var(--bg-secondary) 40px,
-        var(--bg-tertiary) 80px
-    );
+    background: linear-gradient(90deg,
+            var(--bg-tertiary) 0px,
+            var(--bg-secondary) 40px,
+            var(--bg-tertiary) 80px);
     background-size: 200px 100%;
     animation: skeleton-loading 1.5s infinite;
     border-radius: var(--radius-md);
@@ -134,6 +141,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -149,6 +157,7 @@ body {
     from {
         transform: translateX(100%);
     }
+
     to {
         transform: translateX(0);
     }
@@ -160,9 +169,12 @@ body {
 
 /* Pulse animation for notifications */
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }

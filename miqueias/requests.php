@@ -6,14 +6,10 @@ requireAuth();
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitações - Portal do Colaborador</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <?php $pageTitle = 'Solicitações - Portal do Associado'; ?>
+    <?php include 'components/head.php'; ?>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900">
+<body class="bg-white dark:bg-gray-900">
     
     <?php include 'components/sidebar.php'; ?>
     
@@ -118,7 +114,7 @@ requireAuth();
             };
             
             container.innerHTML = filtered.map((req, index) => `
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: ${index * 0.1}s">
+                <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: ${index * 0.1}s">
                     <div class="flex items-start justify-between mb-4">
                         <div class="flex items-center gap-3">
                             <div class="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg">

@@ -1,7 +1,7 @@
 <?php
 /**
  * Profile API
- * Handles employee profile data
+ * Handles profile updates
  */
 
 header('Content-Type: application/json');
@@ -10,82 +10,64 @@ require_once __DIR__ . '/../config/session.php';
 
 requireAuth();
 
-$action = $_GET['action'] ?? 'get';
-$employeeId = getCurrentEmployeeId();
+$action = $_POST['action'] ?? '';
 
 switch ($action) {
-    case 'get':
-        getProfile();
-        break;
-    
-    case 'update':
-        updateProfile();
+    case 'upload_photo':
+        handleUploadPhoto();
         break;
     
     default:
         jsonResponse(false, 'Ação inválida');
 }
 
-function getProfile() {
-    global $employeeId;
-    
-    $employee = dbGetRow(
-        "SELECT * FROM employees WHERE id = ?",
-        [$employeeId]
-    );
-    
-    if (!$employee) {
-        jsonResponse(false, 'Funcionário não encontrado');
+function handleUploadPhoto() {
+    if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+        jsonResponse(false, 'Erro no upload da imagem');
         return;
     }
-    
-    // Calculate time in company
-    $hireDate = new DateTime($employee['hire_date']);
-    $now = new DateTime();
-    $interval = $hireDate->diff($now);
-    
-    $employee['time_in_company'] = [
-        'years' => $interval->y,
-        'months' => $interval->m,
-        'days' => $interval->d,
-        'formatted' => getTimeInCompany($employee['hire_date'])
-    ];
-    
-    // Remove sensitive data
-    unset($employee['password']);
-    
-    jsonResponse(true, 'Perfil carregado', ['employee' => $employee]);
-}
 
-function updateProfile() {
-    global $employeeId;
-    
-    $allowedFields = ['phone', 'mobile', 'address_street', 'address_number', 
-                      'address_complement', 'address_neighborhood', 
-                      'address_city', 'address_state', 'address_zipcode'];
-    
-    $updates = [];
-    $params = [];
-    
-    foreach ($allowedFields as $field) {
-        if (isset($_POST[$field])) {
-            $updates[] = "$field = ?";
-            $params[] = $_POST[$field];
-        }
-    }
-    
-    if (empty($updates)) {
-        jsonResponse(false, 'Nenhum campo para atualizar');
+    $file = $_FILES['photo'];
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+
+    if (!in_array($file['type'], $allowedTypes)) {
+        jsonResponse(false, 'Tipo de arquivo não permitido. Use JPG, PNG, GIF ou WEBP.');
         return;
     }
+
+    if ($file['size'] > $maxSize) {
+        jsonResponse(false, 'Arquivo muito grande. Máximo de 5MB.');
+        return;
+    }
+
+    $employeeId = getCurrentEmployeeId();
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $filename = 'profile_' . $employeeId . '_' . time() . '.' . $extension;
+    $uploadDir = __DIR__ . '/../assets/uploads/profiles/';
     
-    $params[] = $employeeId;
-    $sql = "UPDATE employees SET " . implode(', ', $updates) . " WHERE id = ?";
-    
-    if (dbExecute($sql, $params)) {
-        jsonResponse(true, 'Perfil atualizado com sucesso');
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    $destination = $uploadDir . $filename;
+    $publicPath = 'assets/uploads/profiles/' . $filename;
+
+    if (move_uploaded_file($file['tmp_name'], $destination)) {
+        // Update database
+        dbExecute(
+            "UPDATE employees SET photo_url = ? WHERE id = ?",
+            [$publicPath, $employeeId]
+        );
+
+        // Update session
+        $_SESSION['employee_photo'] = $publicPath;
+
+        jsonResponse(true, 'Foto atualizada com sucesso', [
+            'photo_url' => $publicPath
+        ]);
     } else {
-        jsonResponse(false, 'Erro ao atualizar perfil');
+        jsonResponse(false, 'Erro ao salvar o arquivo');
     }
 }
 

@@ -1,4 +1,4 @@
-// Portal do Colaborador - Reusable Components
+// Portal do Associado - Reusable Components
 
 // Loading Skeleton Component
 const LoadingSkeleton = {

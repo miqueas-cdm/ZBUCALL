@@ -13,14 +13,10 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Perfil - Portal do Colaborador</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <?php $pageTitle = 'Meu Perfil - Portal do Associado'; ?>
+    <?php include 'components/head.php'; ?>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900">
+<body class="bg-white dark:bg-gray-900">
     
     <?php include 'components/sidebar.php'; ?>
     
@@ -32,10 +28,19 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Profile Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center fade-in">
-                    <img src="<?= htmlspecialchars($employeeData['photo_url']) ?>" 
-                         alt="Foto de Perfil" 
-                         class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500">
+                <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 text-center fade-in">
+                    <div class="relative inline-block mx-auto mb-4">
+                        <img id="profile-image" 
+                             src="<?= htmlspecialchars($employeeData['photo_url']) ?>" 
+                             alt="Foto de Perfil" 
+                             class="w-32 h-32 rounded-full object-cover border-4 border-blue-500">
+                        <button onclick="document.getElementById('photo-upload').click()" 
+                                class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors shadow-lg"
+                                title="Alterar foto">
+                            <i data-lucide="camera" class="w-4 h-4"></i>
+                        </button>
+                        <input type="file" id="photo-upload" class="hidden" accept="image/*" onchange="handlePhotoUpload(this)">
+                    </div>
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1"><?= htmlspecialchars($employeeData['full_name']) ?></h2>
                     <p class="text-gray-600 dark:text-gray-400 mb-4"><?= htmlspecialchars($employeeData['position']) ?></p>
                     <div class="space-y-2 text-sm">
@@ -61,7 +66,7 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                 </div>
 
                 <!-- Gamification / Activity Level -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in mt-6">
+                <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 fade-in mt-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                         <i data-lucide="trophy" class="w-5 h-5 text-yellow-500"></i>
                         Nível de Atividade
@@ -71,7 +76,7 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                         <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-100 dark:bg-yellow-900/30 mb-2">
                             <i data-lucide="star" class="w-10 h-10 text-yellow-500"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Super Colaborador</h4>
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Super Associado</h4>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Nível 5</p>
                     </div>
                     
@@ -102,7 +107,7 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                 <!-- Professional Info -->
                 <div class="lg:col-span-2 space-y-6">
                     <!-- Professional Data -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.1s">
+                    <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.1s">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                             <i data-lucide="briefcase" class="w-5 h-5 text-blue-600"></i>
                             Informações Profissionais
@@ -128,7 +133,7 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                     </div>
                     
                     <!-- Personal Data -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.2s">
+                    <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.2s">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                             <i data-lucide="user" class="w-5 h-5 text-blue-600"></i>
                             Dados Pessoais
@@ -154,7 +159,7 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
                     </div>
                     
                     <!-- Address -->
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.3s">
+                    <div class="bg-card dark:bg-gray-800 rounded-lg shadow p-6 fade-in" style="animation-delay: 0.3s">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                             <i data-lucide="map-pin" class="w-5 h-5 text-blue-600"></i>
                             Endereço
@@ -203,6 +208,53 @@ $employeeData = dbGetRow("SELECT * FROM employees WHERE id = ?", [$employeeId]);
     
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="assets/js/main.js"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+
+        async function handlePhotoUpload(input) {
+            if (!input.files || !input.files[0]) return;
+
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('action', 'upload_photo');
+            formData.append('photo', file);
+
+            // Show loading state if desired (e.g., opacity on image)
+            const img = document.getElementById('profile-image');
+            const originalSrc = img.src;
+            img.style.opacity = '0.5';
+
+            try {
+                const response = await fetch('api/profile.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Update image source with timestamp to avoid cache
+                    img.src = data.photo_url + '?t=' + new Date().getTime();
+                    
+                    // Show success toast (assuming Toast exists from main.js)
+                    if (typeof Toast !== 'undefined') {
+                        Toast.show('Foto atualizada com sucesso!', 'success');
+                    } else {
+                        alert('Foto atualizada com sucesso!');
+                    }
+                } else {
+                    alert(data.message || 'Erro ao atualizar foto');
+                    img.src = originalSrc;
+                }
+            } catch (error) {
+                console.error('Error uploading photo:', error);
+                alert('Erro ao enviar foto');
+                img.src = originalSrc;
+            } finally {
+                img.style.opacity = '1';
+                input.value = ''; // Reset input
+            }
+        }
+    </script>
 </body>
 </html>

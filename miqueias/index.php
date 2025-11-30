@@ -123,12 +123,12 @@
                 </div>
             </form>
             
-            <!-- Demo Credentials Info -->
+            <!-- Demo Credentials 
             <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <p class="text-sm text-blue-800 dark:text-blue-300 font-medium mb-2">📌 Credenciais de Teste:</p>
                 <p class="text-xs text-blue-700 dark:text-blue-400">CPF: 123.456.789-00</p>
                 <p class="text-xs text-blue-700 dark:text-blue-400">Matrícula: EMP001</p>
-            </div>
+            </div> Info -->
         </div>
         
         <!-- Footer -->

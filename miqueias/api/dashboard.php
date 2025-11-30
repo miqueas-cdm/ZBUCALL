@@ -37,14 +37,18 @@ $recentNotifications = dbGetAll(
 );
 
 // Get important communications (last 3)
+// Get important communications (last 3)
 $importantCommunications = dbGetAll(
-    "SELECT * FROM communications 
-     WHERE status = 'published' 
-     AND (priority = 'high' OR priority = 'urgent')
-     AND (published_at IS NULL OR published_at <= NOW())
-     AND (expires_at IS NULL OR expires_at > NOW())
-     ORDER BY priority DESC, published_at DESC 
-     LIMIT 3"
+    "SELECT c.*, 
+            (SELECT selected_option FROM survey_responses sr WHERE sr.communication_id = c.id AND sr.employee_id = ?) as user_vote
+     FROM communications c
+     WHERE c.status = 'published' 
+     AND (c.priority = 'high' OR c.priority = 'urgent')
+     AND (c.published_at IS NULL OR c.published_at <= NOW())
+     AND (c.expires_at IS NULL OR c.expires_at > NOW())
+     ORDER BY c.priority DESC, c.published_at DESC 
+     LIMIT 3",
+    [$employeeId]
 );
 
 // Get current month payslip status

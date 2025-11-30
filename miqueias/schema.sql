@@ -2,6 +2,7 @@
 -- MySQL Database Schema
 
 -- Drop existing tables if they exist
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS communications;
@@ -10,6 +11,7 @@ DROP TABLE IF EXISTS time_records;
 DROP TABLE IF EXISTS payslips;
 DROP TABLE IF EXISTS benefits;
 DROP TABLE IF EXISTS employees;
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- Employees table
 CREATE TABLE employees (
@@ -17,6 +19,7 @@ CREATE TABLE employees (
     registration_number VARCHAR(20) UNIQUE NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
+    role ENUM('employee', 'admin') DEFAULT 'employee',
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     mobile VARCHAR(20),
@@ -185,7 +188,7 @@ CREATE TABLE notifications (
 -- Insert sample employee data
 -- Password: 'senha123' (in production, use proper hashing like password_hash())
 INSERT INTO employees (
-    registration_number, full_name, email, password,
+    registration_number, full_name, email, role, password,
     phone, mobile, birth_date, hire_date,
     position, department,
     address_street, address_number, address_neighborhood,
@@ -193,7 +196,7 @@ INSERT INTO employees (
     status, cpf
 ) VALUES 
 (
-    'EMP001', 'João Silva Santos', 'joao.silva@empresa.com', 
+    'EMP001', 'João Silva Santos', 'joao.silva@empresa.com', 'employee',
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     '(11) 3456-7890', '(11) 98765-4321', '1990-05-15', '2020-01-10',
     'Desenvolvedor Full Stack', 'Tecnologia da Informação',
@@ -202,7 +205,7 @@ INSERT INTO employees (
     'active', '123.456.789-00'
 ),
 (
-    'EMP002', 'Maria Oliveira Costa', 'maria.oliveira@empresa.com',
+    'EMP002', 'Maria Oliveira Costa', 'maria.oliveira@empresa.com', 'admin',
     '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
     '(11) 3456-7891', '(11) 98765-4322', '1988-08-20', '2019-03-15',
     'Gerente de RH', 'Recursos Humanos',

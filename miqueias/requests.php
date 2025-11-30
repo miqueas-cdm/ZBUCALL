@@ -32,18 +32,18 @@ requireAuth();
             
             <!-- Status Tabs -->
             <div class="mb-6">
-                <div class="border-b border-gray-200 dark:border-gray-700">
-                    <nav class="-mb-px flex gap-6">
-                        <button onclick="filterStatus('all')" class="status-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm">
+                <div class="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+                    <nav class="-mb-px flex gap-6 min-w-max">
+                        <button onclick="filterStatus('all')" class="status-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Todas
                         </button>
-                        <button onclick="filterStatus('pending')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterStatus('pending')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Pendentes
                         </button>
-                        <button onclick="filterStatus('approved')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterStatus('approved')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Aprovadas
                         </button>
-                        <button onclick="filterStatus('rejected')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterStatus('rejected')" class="status-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Rejeitadas
                         </button>
                     </nav>

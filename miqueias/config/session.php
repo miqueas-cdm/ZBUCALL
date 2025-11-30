@@ -43,6 +43,7 @@ function loginEmployee($employeeData) {
     $_SESSION['employee_department'] = $employeeData['department'];
     $_SESSION['employee_photo'] = $employeeData['photo_url'];
     $_SESSION['employee_registration'] = $employeeData['registration_number'];
+    $_SESSION['employee_role'] = $employeeData['role'] ?? 'employee';
 }
 
 // Logout user
@@ -58,6 +59,20 @@ function requireAuth() {
         header('Location: index.php');
         exit;
     }
+}
+
+// Require admin authentication
+function requireAdmin() {
+    requireAuth();
+    if ($_SESSION['employee_role'] !== 'admin') {
+        header('Location: ../dashboard.php');
+        exit;
+    }
+}
+
+// Check if user is admin
+function isAdmin() {
+    return isset($_SESSION['employee_role']) && $_SESSION['employee_role'] === 'admin';
 }
 
 // Set flash message

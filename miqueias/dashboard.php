@@ -182,19 +182,45 @@ $employee = getCurrentEmployee();
                     
                     // Update communications
                     const comms = data.data.important_communications || [];
-                    const commsHTML = comms.length > 0 ? comms.map(comm => `
-                        <a href="communications.php?id=${comm.id}" class="block p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    const commsHTML = comms.length > 0 ? comms.map(comm => {
+                        let surveyHTML = '';
+                        if (comm.survey_question && comm.survey_options) {
+                            const options = JSON.parse(comm.survey_options);
+                            const hasVoted = comm.user_vote !== null;
+                            
+                            surveyHTML = `
+                                <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                                    <p class="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">${comm.survey_question}</p>
+                                    <div class="space-y-2">
+                                        ${options.map(opt => `
+                                            <button onclick="submitVote(${comm.id}, '${opt}')" 
+                                                    class="w-full text-left px-3 py-2 rounded text-sm transition-colors ${hasVoted ? (comm.user_vote === opt ? 'bg-blue-100 text-blue-800 border border-blue-200' : 'bg-gray-50 text-gray-400 cursor-not-allowed') : 'bg-gray-50 hover:bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}"
+                                                    ${hasVoted ? 'disabled' : ''}>
+                                                ${opt} ${hasVoted && comm.user_vote === opt ? '✓' : ''}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                    ${hasVoted ? '<p class="text-xs text-green-600 mt-2">Obrigado por votar!</p>' : ''}
+                                </div>
+                            `;
+                        }
+
+                        return `
+                        <div class="block p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                             <div class="flex items-start gap-3">
                                 <div class="p-2">
                                     <i data-lucide="info" class="w-5 h-5" style="color: #c21a21;"></i>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">${comm.title}</h3>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">${comm.content}</p>
+                                    <a href="communications.php?id=${comm.id}" class="block">
+                                        <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">${comm.title}</h3>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">${comm.content}</p>
+                                    </a>
+                                    ${surveyHTML}
                                 </div>
                             </div>
-                        </a>
-                    `).join('') : '<p class="text-center text-gray-500 py-4">Nenhum comunicado importante no momento</p>';
+                        </div>
+                    `}).join('') : '<p class="text-center text-gray-500 py-4">Nenhum comunicado importante no momento</p>';
                     
                     document.getElementById('communications-container').innerHTML = commsHTML;
                     
@@ -202,6 +228,29 @@ $employee = getCurrentEmployee();
                 }
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        async function submitVote(commId, option) {
+            const formData = new FormData();
+            formData.append('action', 'vote');
+            formData.append('communication_id', commId);
+            formData.append('option', option);
+
+            try {
+                const response = await fetch('api/survey_vote.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    loadDashboardData(); // Reload to update UI
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error voting:', error);
             }
         }
         

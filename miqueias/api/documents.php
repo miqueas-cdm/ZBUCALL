@@ -76,6 +76,36 @@ function uploadDocument() {
         jsonResponse(false, 'Título é obrigatório');
         return;
     }
+
+    // Validate file size (10MB max)
+    $maxSize = 10 * 1024 * 1024; // 10MB
+    if ($file['size'] > $maxSize) {
+        jsonResponse(false, 'O arquivo excede o tamanho máximo permitido de 10MB');
+        return;
+    }
+
+    // Validate file type
+    $allowedTypes = [
+        'application/pdf', 
+        'application/msword', 
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'image/jpeg', 
+        'image/png',
+        'image/webp'
+    ];
+    
+    if (!in_array($file['type'], $allowedTypes)) {
+        // Double check extension if mime type fails (sometimes reliable)
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $allowedExts = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'webp'];
+        
+        if (!in_array($ext, $allowedExts)) {
+            jsonResponse(false, 'Tipo de arquivo não permitido. Use PDF, Word, Excel ou Imagens.');
+            return;
+        }
+    }
     
     // Create upload directory if not exists
     $uploadDir = __DIR__ . '/../uploads/documents/' . $employeeId . '/';

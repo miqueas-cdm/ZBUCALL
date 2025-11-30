@@ -100,7 +100,7 @@ function handleLoginRegistration() {
             'department' => $employee['department'],
             'photo_url' => $employee['photo_url']
         ],
-        'redirect' => 'dashboard.php'
+        'redirect' => $employee['role'] === 'admin' ? 'admin/dashboard.php' : 'dashboard.php'
     ]);
 }
 
@@ -190,7 +190,7 @@ function handleLoginOtp() {
             'department' => $employee['department'],
             'photo_url' => $employee['photo_url']
         ],
-        'redirect' => 'dashboard.php'
+        'redirect' => $employee['role'] === 'admin' ? 'admin/dashboard.php' : 'dashboard.php'
     ]);
 }
 
@@ -232,7 +232,7 @@ function handleLogin() {
             'department' => $employee['department'],
             'photo_url' => $employee['photo_url']
         ],
-        'redirect' => 'dashboard.php'
+        'redirect' => $employee['role'] === 'admin' ? 'admin/dashboard.php' : 'dashboard.php'
     ]);
 }
 

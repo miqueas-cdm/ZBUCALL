@@ -32,27 +32,27 @@ requireAuth();
             
             <!-- Category Tabs -->
             <div class="mb-6">
-                <div class="border-b border-gray-200 dark:border-gray-700">
-                    <nav class="-mb-px flex gap-6">
-                        <button onclick="filterCategory('all')" class="category-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm">
+                <div class="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+                    <nav class="-mb-px flex gap-6 min-w-max">
+                        <button onclick="filterCategory('all')" class="category-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Todos
                         </button>
-                        <button onclick="filterCategory('policy')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('policy')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Políticas
                         </button>
-                        <button onclick="filterCategory('manual')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('manual')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Manuais
                         </button>
-                        <button onclick="filterCategory('certificate')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('certificate')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Certificados
                         </button>
-                        <button onclick="filterCategory('card')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('card')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Carteirinhas
                         </button>
-                        <button onclick="filterCategory('events')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('events')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Eventos
                         </button>
-                        <button onclick="filterCategory('transparency')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('transparency')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Transparência
                         </button>
                     </nav>
@@ -60,7 +60,8 @@ requireAuth();
             </div>
             
             <!-- Documents Grid -->
-            <div id="documents-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div id="documents-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div class="skeleton h-32"></div>
                 <div class="skeleton h-32"></div>
                 <div class="skeleton h-32"></div>
                 <div class="skeleton h-32"></div>

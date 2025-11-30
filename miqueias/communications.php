@@ -26,18 +26,18 @@ requireAuth();
             
             <!-- Filter Tabs -->
             <div class="mb-6">
-                <div class="border-b border-gray-200 dark:border-gray-700">
-                    <nav class="-mb-px flex gap-6">
-                        <button onclick="filterCategory('all')" class="category-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm">
+                <div class="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+                    <nav class="-mb-px flex gap-6 min-w-max">
+                        <button onclick="filterCategory('all')" class="category-tab active border-b-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Todos
                         </button>
-                        <button onclick="filterCategory('announcement')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('announcement')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Avisos
                         </button>
-                        <button onclick="filterCategory('news')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('news')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Notícias
                         </button>
-                        <button onclick="filterCategory('campaign')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm">
+                        <button onclick="filterCategory('campaign')" class="category-tab border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 py-3 px-1 font-medium text-sm whitespace-nowrap">
                             Campanhas
                         </button>
                     </nav>

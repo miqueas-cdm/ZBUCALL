@@ -241,9 +241,7 @@ Este projeto é de código aberto e está disponível sob a licença MIT.
 
 ## 👨‍💻 Desenvolvido por
 
-Portal do Colaborador - Sistema de Gestão de RH
-
----
+Portal do Colaborador - Sistema de Gestão 
 
 **Última atualização:** Novembro 2025
 
